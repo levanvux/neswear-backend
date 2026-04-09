@@ -3,12 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserModule } from './user/user.module';
-import { ProductModule } from './product/product.module';
-import { CartModule } from './cart/cart.module';
-import { OrderModule } from './order/order.module';
-import { PaymentModule } from './payment/payment.module';
-
+import { UsersModule } from './users/users.module';
+import { PaymentsModule } from './payments/payments.module';
+import { CartsModule } from './carts/carts.module';
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -18,19 +18,23 @@ import { PaymentModule } from './payment/payment.module';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: 'localhost',
-        port: configService.get<number>('PG_PORT'),
-        username: configService.get<string>('PG_USER'),
-        password: configService.get<string>('PG_PASSWORD'),
-        database: configService.get<string>('PG_DB'),
-        entities: [],
-        synchronize: true,
+        port: configService.getOrThrow<number>('PG_PORT'),
+        username: configService.getOrThrow<string>('PG_USER'),
+        password: configService.getOrThrow<string>('PG_PASSWORD'),
+        database: configService.getOrThrow<string>('PG_DB'),
+        autoLoadEntities: true,
+        synchronize:
+          configService.getOrThrow<string>('NODE_ENV') === 'development'
+            ? true
+            : false,
       }),
     }),
-    UserModule,
-    ProductModule,
-    CartModule,
-    OrderModule,
-    PaymentModule,
+    UsersModule,
+    PaymentsModule,
+    CartsModule,
+    ProductsModule,
+    OrdersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

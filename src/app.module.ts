@@ -4,11 +4,12 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
-import { PaymentsModule } from './payments/payments.module';
-import { CartsModule } from './carts/carts.module';
+// import { PaymentsModule } from './payments/payments.module';
+// import { CartsModule } from './carts/carts.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
+import { SeedModule } from './seed/seed.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -17,7 +18,7 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: 'localhost',
+        host: configService.getOrThrow<string>('PG_HOST'),
         port: configService.getOrThrow<number>('PG_PORT'),
         username: configService.getOrThrow<string>('PG_USER'),
         password: configService.getOrThrow<string>('PG_PASSWORD'),
@@ -30,11 +31,12 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     UsersModule,
-    PaymentsModule,
-    CartsModule,
+    // PaymentsModule,
+    // CartsModule,
     ProductsModule,
     OrdersModule,
     AuthModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

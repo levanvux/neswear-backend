@@ -8,15 +8,7 @@ import {
 } from 'typeorm';
 import { Product } from './product.entity';
 import { OrderItem } from '../../orders/entities/order-item.entity';
-
-export enum Size {
-  XS = 'XS',
-  S = 'S',
-  M = 'M',
-  L = 'L',
-  XL = 'XL',
-  XXL = 'XXL',
-}
+import { Size } from '../../enums/size.enum';
 
 @Entity('product_variants')
 export class ProductVariant {

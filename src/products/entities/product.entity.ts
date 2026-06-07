@@ -1,14 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductVariant } from './product-variant.entity';
 import { ProductImage } from './product-image.entity';
-
-export enum Category {
-  SHIRT = 'shirt',
-  PANTS = 'pants',
-  JACKET = 'jacket',
-  UNDERWEAR = 'underwear',
-  ACCESSORY = 'accessory',
-}
+import { Category } from '../../enums/category.enum';
 
 @Entity('products')
 export class Product {

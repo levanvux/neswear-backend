@@ -10,6 +10,8 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { SeedModule } from './seed/seed.module';
+import { UploadModule } from './upload/upload.module';
+import { MinioModule } from './minio/minio.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -37,6 +39,8 @@ import { SeedModule } from './seed/seed.module';
     OrdersModule,
     AuthModule,
     SeedModule,
+    UploadModule,
+    MinioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

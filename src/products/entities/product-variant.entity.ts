@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Product } from './product.entity';
 import { OrderItem } from '../../orders/entities/order-item.entity';
-import { Size } from '../../enums/size.enum';
+import { Size } from '../../common/enums/size.enum';
 
 @Entity('product_variants')
 export class ProductVariant {

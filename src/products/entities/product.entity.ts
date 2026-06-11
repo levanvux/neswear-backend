@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductVariant } from './product-variant.entity';
 import { ProductImage } from './product-image.entity';
-import { Category } from '../../enums/category.enum';
+import { Category } from '../../common/enums/category.enum';
 
 @Entity('products')
 export class Product {
@@ -11,7 +11,9 @@ export class Product {
   @Column()
   name!: string;
 
-  @Column()
+  @Column({
+    type: 'integer',
+  })
   price!: number;
 
   @Column({

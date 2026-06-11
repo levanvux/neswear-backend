@@ -2,7 +2,6 @@ import {
   IsArray,
   IsEmail,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   ValidateNested,
 } from 'class-validator';

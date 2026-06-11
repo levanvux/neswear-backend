@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { User } from '../users/entities/user.entity';
-import { Role } from '../enums/role.enum';
+import { Role } from '../common/enums/role.enum';
 
 @Injectable()
 export class UserSeeder {
@@ -21,7 +21,7 @@ export class UserSeeder {
         lastName: 'Admin',
         phoneNumber: '0900000001',
         role: Role.ADMIN,
-        avatarUrl: 'avatars/admin.png',
+        avatarKey: 'avatars/admin.png',
 
         addresses: [
           {
@@ -39,7 +39,7 @@ export class UserSeeder {
         lastName: 'Manager',
         phoneNumber: '0900000002',
         role: Role.ADMIN,
-        avatarUrl: 'avatars/admin.png',
+        avatarKey: 'avatars/admin.png',
 
         addresses: [
           {
@@ -57,7 +57,7 @@ export class UserSeeder {
         lastName: 'Nguyen',
         phoneNumber: '0901111111',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {
@@ -75,7 +75,7 @@ export class UserSeeder {
         lastName: 'Tran',
         phoneNumber: '0902222222',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {
@@ -93,7 +93,7 @@ export class UserSeeder {
         lastName: 'Le',
         phoneNumber: '0903333333',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {
@@ -116,7 +116,7 @@ export class UserSeeder {
         lastName: 'Pham',
         phoneNumber: '0904444444',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {
@@ -134,7 +134,7 @@ export class UserSeeder {
         lastName: 'Hoang',
         phoneNumber: '0905555555',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {
@@ -152,7 +152,7 @@ export class UserSeeder {
         lastName: 'Vu',
         phoneNumber: '0906666666',
         role: Role.CUSTOMER,
-        avatarUrl: 'avatars/default.png',
+        avatarKey: 'avatars/default.png',
 
         addresses: [
           {

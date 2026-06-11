@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { MinioModule } from '../minio/minio.module';
+
 import { Address } from '../users/entities/address.entity';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
@@ -11,7 +13,7 @@ import { MinioSeeder } from './minio.seeder';
 import { UserSeeder } from './user.seeder';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Address, User, Product])],
+  imports: [TypeOrmModule.forFeature([Address, User, Product]), MinioModule],
   providers: [SeedService, UserSeeder, ProductSeeder, MinioSeeder],
 })
 export class SeedModule {}

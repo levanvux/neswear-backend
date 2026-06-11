@@ -2,28 +2,17 @@ import { Injectable } from '@nestjs/common';
 import * as Minio from 'minio';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ConfigService } from '@nestjs/config';
+import { MinioService } from '../minio/minio.service';
 
 @Injectable()
 export class MinioSeeder {
-  private readonly bucket = 'assets';
+  private readonly bucket: string;
 
   private readonly client: Minio.Client;
 
-  constructor(private readonly configService: ConfigService) {
-    this.bucket = this.configService.getOrThrow('MINIO_BUCKET');
-
-    this.client = new Minio.Client({
-      endPoint: this.configService.getOrThrow('MINIO_ENDPOINT'),
-
-      port: Number(this.configService.getOrThrow('MINIO_PORT')),
-
-      useSSL: this.configService.getOrThrow('MINIO_USE_SSL') === 'true',
-
-      accessKey: this.configService.getOrThrow('MINIO_USER'),
-
-      secretKey: this.configService.getOrThrow('MINIO_PASSWORD'),
-    });
+  constructor(private readonly minioService: MinioService) {
+    this.bucket = this.minioService.bucket;
+    this.client = this.minioService.client;
   }
 
   async seed() {

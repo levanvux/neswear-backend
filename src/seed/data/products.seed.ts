@@ -1,5 +1,5 @@
-import { Category } from '../../enums/category.enum';
-import { Size } from '../../enums/size.enum';
+import { Category } from '../../common/enums/category.enum';
+import { Size } from '../../common/enums/size.enum';
 
 export const productsSeed = [
   // ACCESSORY

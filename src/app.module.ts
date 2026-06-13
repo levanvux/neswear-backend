@@ -10,7 +10,7 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { SeedModule } from './seed/seed.module';
-import { UploadModule } from './upload/upload.module';
+import { StorageModule } from './storage/storage.module';
 import { MinioModule } from './minio/minio.module';
 @Module({
   imports: [
@@ -39,7 +39,7 @@ import { MinioModule } from './minio/minio.module';
     OrdersModule,
     AuthModule,
     SeedModule,
-    UploadModule,
+    StorageModule,
     MinioModule,
   ],
   controllers: [AppController],

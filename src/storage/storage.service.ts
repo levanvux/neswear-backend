@@ -5,7 +5,7 @@ import { posix, extname } from 'path';
 import { randomUUID } from 'crypto';
 
 @Injectable()
-export class UploadService implements OnModuleInit {
+export class StorageService implements OnModuleInit {
   private readonly bucket: string;
   private readonly client: Minio.Client;
   constructor(private readonly minioService: MinioService) {
@@ -39,5 +39,16 @@ export class UploadService implements OnModuleInit {
 
   async delete(objectName: string) {
     await this.client.removeObject(this.bucket, objectName);
+  }
+
+  async getPresignedUrl(
+    objectName: string,
+    expirySeconds: number = 3600,
+  ): Promise<string> {
+    return this.client.presignedGetObject(
+      this.bucket,
+      objectName,
+      expirySeconds,
+    );
   }
 }

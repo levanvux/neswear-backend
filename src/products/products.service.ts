@@ -5,13 +5,14 @@ import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { ProductVariant } from './entities/product-variant.entity';
 import { ProductImage } from './entities/product-image.entity';
-import { UploadService } from '../upload/upload.service';
+import { StorageService } from '../storage/storage.service';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { CreateProductVariantDto } from './dto/create-product-variant.dto';
 import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
+import { ProductCard } from './interfaces/product-card.interface';
 
 @Injectable()
 export class ProductsService {
@@ -23,13 +24,15 @@ export class ProductsService {
     @InjectRepository(ProductImage)
     private productImageRepository: Repository<ProductImage>,
 
-    private uploadService: UploadService,
+    private storageService: StorageService,
   ) {}
 
   async findAll(queryDto: ProductQueryDto) {
     const { search, category, sort, page, limit } = queryDto;
 
-    const query = this.productRepository.createQueryBuilder('product');
+    const query = this.productRepository
+      .createQueryBuilder('product')
+      .leftJoin('product.variants', 'variant');
 
     if (search) {
       query.andWhere('product.name LIKE :search', {
@@ -53,11 +56,34 @@ export class ProductsService {
       }
     }
 
-    query.skip((page - 1) * limit).take(limit);
+    const total = await query.clone().getCount();
 
-    const [data, total] = await query.getManyAndCount();
+    const data = await query
+      .select('product.id', 'id')
+      .addSelect('product.name', 'name')
+      .addSelect('product.price', 'price')
+      .addSelect('product.thumbnailKey', 'thumbnailKey')
+      .addSelect('COUNT(DISTINCT variant.color)', 'colorCount')
+      .addSelect('COUNT(DISTINCT variant.size)', 'sizeCount')
+      .groupBy('product.id')
+      .addGroupBy('product.name')
+      .addGroupBy('product.price')
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getRawMany();
+
     return {
-      data,
+      data: await Promise.all(
+        data.map(async (product: ProductCard) => ({
+          ...product,
+          price: Number(product.price),
+          thumbnailUrl: await this.storageService.getPresignedUrl(
+            product.thumbnailKey,
+          ),
+          colorCount: Number(product.colorCount),
+          sizeCount: Number(product.sizeCount),
+        })),
+      ),
       total,
       page,
       limit,
@@ -74,7 +100,15 @@ export class ProductsService {
       throw new NotFoundException('Product not found');
     }
 
-    return product;
+    return {
+      ...product,
+      images: await Promise.all(
+        product.images.map(async (img) => ({
+          ...img,
+          imageUrl: await this.storageService.getPresignedUrl(img.imageKey),
+        })),
+      ),
+    };
   }
 
   async create(
@@ -93,7 +127,7 @@ export class ProductsService {
     const imageKeys: string[] = [];
     if (files) {
       for (const file of files) {
-        const res = await this.uploadService.upload(
+        const res = await this.storageService.upload(
           `products/${product.category}/${product.id}`,
           file,
         );
@@ -138,7 +172,7 @@ export class ProductsService {
       throw new NotFoundException('Product not found');
     }
 
-    const { objectName } = await this.uploadService.upload(
+    const { objectName } = await this.storageService.upload(
       `products/${product.category}/${product.id}`,
       file,
     );
@@ -193,7 +227,7 @@ export class ProductsService {
       throw new NotFoundException('Product image not found');
     }
 
-    await this.uploadService.delete(image.imageKey);
+    await this.storageService.delete(image.imageKey);
 
     return this.productImageRepository.remove(image);
   }

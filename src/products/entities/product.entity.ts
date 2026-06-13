@@ -22,6 +22,9 @@ export class Product {
   })
   category!: Category;
 
+  @Column({ nullable: true })
+  thumbnailKey!: string;
+
   @OneToMany(() => ProductImage, (image) => image.product, {
     cascade: true,
   })

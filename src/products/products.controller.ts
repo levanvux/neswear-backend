@@ -24,7 +24,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { JwtGuard } from '../auth/guards/jwt.guard';
-import { UploadedImage } from 'src/common/decorators/uploaded-image.decorator';
+import { UploadedImage } from '../common/decorators/uploaded-image.decorator';
 import { uploadImagesConfig } from '../common/configs/uploadImages.config';
 
 @Controller('products')

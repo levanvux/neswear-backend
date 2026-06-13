@@ -7,6 +7,7 @@ export const productsSeed = [
     name: 'Balo đa năng',
     price: 299000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/balo-da-nang.png',
     images: ['products/accessory/balo-da-nang.png'],
     variants: [
       { color: 'black', size: Size.M, stock: 15 },
@@ -18,6 +19,7 @@ export const productsSeed = [
     name: 'Mũ bucket',
     price: 99000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/mu-bucket.png',
     images: ['products/accessory/mu-bucket.png'],
     variants: [{ color: 'beige', size: Size.M, stock: 30 }],
   },
@@ -26,6 +28,7 @@ export const productsSeed = [
     name: 'Mũ beanie',
     price: 79000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/mu-beanie-den.png',
     images: [
       'products/accessory/mu-beanie-den.png',
       'products/accessory/mu-beanie-nau.png',
@@ -40,6 +43,7 @@ export const productsSeed = [
     name: 'Mũ lưỡi trai',
     price: 89000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/mu-luoi-trai-den.png',
     images: [
       'products/accessory/mu-luoi-trai-den.png',
       'products/accessory/mu-luoi-trai-xanh-duong.png',
@@ -54,6 +58,7 @@ export const productsSeed = [
     name: 'Thắt lưng da',
     price: 129000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/that-lung-da-den.png',
     images: [
       'products/accessory/that-lung-da-den.png',
       'products/accessory/that-lung-da-nau.png',
@@ -68,6 +73,7 @@ export const productsSeed = [
     name: 'Thắt lưng đan',
     price: 129000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/that-lung-dan-den.png',
     images: [
       'products/accessory/that-lung-dan-den.png',
       'products/accessory/that-lung-dan-nau.png',
@@ -82,6 +88,7 @@ export const productsSeed = [
     name: 'Túi đeo chéo',
     price: 199000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/tui-deo-cheo.png',
     images: ['products/accessory/tui-deo-cheo.png'],
     variants: [{ color: 'black', size: Size.M, stock: 15 }],
   },
@@ -90,6 +97,7 @@ export const productsSeed = [
     name: 'Túi bán nguyệt',
     price: 199000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/tui-ban-nguyet-trang.png',
     images: [
       'products/accessory/tui-ban-nguyet-trang.png',
       'products/accessory/tui-ban-nguyet-xanh-duong.png',
@@ -108,6 +116,7 @@ export const productsSeed = [
     name: 'Túi vải tái chế',
     price: 99000,
     category: Category.ACCESSORY,
+    thumbnailKey: 'products/accessory/tui-vai-tai-che.png',
     images: ['products/accessory/tui-vai-tai-che.png'],
     variants: [{ color: 'white', size: Size.M, stock: 15 }],
   },
@@ -117,6 +126,7 @@ export const productsSeed = [
     name: 'Áo blazer đen',
     price: 499000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-blazer-den.png',
     images: [
       'products/jacket/ao-blazer-den.png',
       'products/jacket/ao-blazer-be.png',
@@ -136,6 +146,7 @@ export const productsSeed = [
     name: 'Áo canvas',
     price: 459000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-canvas-navy.png',
     images: [
       'products/jacket/ao-canvas-navy.png',
       'products/jacket/ao-canvas-kaki.png',
@@ -152,6 +163,7 @@ export const productsSeed = [
     name: 'Áo harrington',
     price: 459000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-harrington-navy.png',
     images: [
       'products/jacket/ao-harrington-navy.png',
       'products/jacket/ao-harrington-kaki.png',
@@ -168,6 +180,7 @@ export const productsSeed = [
     name: 'Áo phao',
     price: 599000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-phao-be.png',
     images: [
       'products/jacket/ao-phao-be.png',
       'products/jacket/ao-phao-den.png',
@@ -184,6 +197,7 @@ export const productsSeed = [
     name: 'Áo chống nắng',
     price: 299000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-chong-nang-xam.png',
     images: [
       'products/jacket/ao-chong-nang-xam.png',
       'products/jacket/ao-chong-nang-be.png',
@@ -200,6 +214,7 @@ export const productsSeed = [
     name: 'Áo măng tô',
     price: 599000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-mang-to-nau-dam.png',
     images: [
       'products/jacket/ao-mang-to-nau-dam.png',
       'products/jacket/ao-mang-to-nau-nhat.png',
@@ -216,6 +231,7 @@ export const productsSeed = [
     name: 'Áo blouson',
     price: 499000,
     category: Category.JACKET,
+    thumbnailKey: 'products/jacket/ao-blouson-navy.png',
     images: [
       'products/jacket/ao-blouson-navy.png',
       'products/jacket/ao-blouson-be.png',
@@ -233,6 +249,7 @@ export const productsSeed = [
     name: 'Quần jean',
     price: 299000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-jean-den.png',
     images: [
       'products/pants/quan-jean-den.png',
       'products/pants/quan-jean-xanh.png',
@@ -249,6 +266,7 @@ export const productsSeed = [
     name: 'Quần túi hộp',
     price: 299000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-tui-hop-xam.png',
     images: [
       'products/pants/quan-tui-hop-xam.png',
       'products/pants/quan-tui-hop-den.png',
@@ -268,6 +286,7 @@ export const productsSeed = [
     name: 'Quần chino',
     price: 259000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-chino-xam.png',
     images: [
       'products/pants/quan-chino-xam.png',
       'products/pants/quan-chino-den.png',
@@ -287,6 +306,7 @@ export const productsSeed = [
     name: 'Quần shorts',
     price: 199000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-shorts-den.png',
     images: [
       'products/pants/quan-shorts-den.png',
       'products/pants/quan-shorts-be.png',
@@ -303,6 +323,7 @@ export const productsSeed = [
     name: 'Quần short đen thể thao',
     price: 199000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-shorts-the-thao-den.png',
     images: [
       'products/pants/quan-shorts-the-thao-den.png',
       'products/pants/quan-shorts-the-thao-navy.png',
@@ -322,6 +343,7 @@ export const productsSeed = [
     name: 'Quần dài ống rộng',
     price: 299000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-dai-ong-rong-be.png',
     images: [
       'products/pants/quan-dai-ong-rong-be.png',
       'products/pants/quan-dai-ong-rong-nau.png',
@@ -338,6 +360,7 @@ export const productsSeed = [
     name: 'Quần jogger',
     price: 249000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-jogger-den.png',
     images: [
       'products/pants/quan-jogger-den.png',
       'products/pants/quan-jogger-xam.png',
@@ -357,6 +380,7 @@ export const productsSeed = [
     name: 'Quần nỉ',
     price: 299000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-ni-xanh-la.png',
     images: [
       'products/pants/quan-ni-xanh-la.png',
       'products/pants/quan-ni-xam.png',
@@ -376,6 +400,7 @@ export const productsSeed = [
     name: 'Quần tây',
     price: 399000,
     category: Category.PANTS,
+    thumbnailKey: 'products/pants/quan-tay-be.png',
     images: [
       'products/pants/quan-tay-be.png',
       'products/pants/quan-tay-den.png',
@@ -396,6 +421,7 @@ export const productsSeed = [
     name: 'Áo thun dài tay',
     price: 149000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-dai-tay-xanh-duong.png',
     images: [
       'products/shirt/ao-thun-dai-tay-xanh-duong.png',
       'products/shirt/ao-thun-dai-tay-cam.png',
@@ -418,6 +444,7 @@ export const productsSeed = [
     name: 'Áo thun',
     price: 99000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-trang.png',
     images: [
       'products/shirt/ao-thun-trang.png',
       'products/shirt/ao-thun-xanh-la.png',
@@ -445,6 +472,7 @@ export const productsSeed = [
     name: 'Áo thun tay lở',
     price: 129000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-tay-lo-xanh-reu.png',
     images: [
       'products/shirt/ao-thun-tay-lo-xanh-reu.png',
       'products/shirt/ao-thun-tay-lo-tim.png',
@@ -474,6 +502,7 @@ export const productsSeed = [
     name: 'Áo thun kẻ sọc',
     price: 129000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-ke-soc-vang.png',
     images: [
       'products/shirt/ao-thun-ke-soc-vang.png',
       'products/shirt/ao-thun-ke-soc-xanh-la.png',
@@ -498,6 +527,7 @@ export const productsSeed = [
     name: 'Áo sơ mi',
     price: 399000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-so-mi-trang.png',
     images: [
       'products/shirt/ao-so-mi-trang.png',
       'products/shirt/ao-so-mi-xanh.png',
@@ -516,6 +546,7 @@ export const productsSeed = [
     name: 'Áo hoodie nỉ',
     price: 299000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-hoodie-ni-xam-dam.png',
     images: [
       'products/shirt/ao-hoodie-ni-xam-dam.png',
       'products/shirt/ao-hoodie-ni-cam.png',
@@ -535,6 +566,7 @@ export const productsSeed = [
     name: 'Áo hoodie nỉ kéo khóa',
     price: 299000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-hoodie-ni-keo-khoa-xanh-navy.png',
     images: [
       'products/shirt/ao-hoodie-ni-keo-khoa-xanh-navy.png',
       'products/shirt/ao-hoodie-ni-keo-khoa-cam.png',
@@ -557,6 +589,7 @@ export const productsSeed = [
     name: 'Áo nỉ',
     price: 199000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-ni-do.png',
     images: ['products/shirt/ao-ni-do.png', 'products/shirt/ao-ni-xanh-la.png'],
     variants: [
       { color: 'red', size: Size.S, stock: 20 },
@@ -572,6 +605,7 @@ export const productsSeed = [
     name: 'Áo thun cổ henley',
     price: 149000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-co-henley-xam.png',
     images: [
       'products/shirt/ao-thun-co-henley-xam.png',
       'products/shirt/ao-thun-co-henley-cam.png',
@@ -594,6 +628,7 @@ export const productsSeed = [
     name: 'Áo thun không tay',
     price: 99000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-thun-khong-tay-xanh-duong.png',
     images: [
       'products/shirt/ao-thun-khong-tay-xanh-duong.png',
       'products/shirt/ao-thun-khong-tay-cam.png',
@@ -616,6 +651,7 @@ export const productsSeed = [
     name: 'Áo ba lỗ',
     price: 89000,
     category: Category.SHIRT,
+    thumbnailKey: 'products/shirt/ao-ba-lo-hong.png',
     images: [
       'products/shirt/ao-ba-lo-hong.png',
       'products/shirt/ao-ba-lo-do.png',
@@ -639,6 +675,7 @@ export const productsSeed = [
     name: 'Quần boxer',
     price: 69000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/quan-lot-boxer-den.png',
     images: [
       'products/underwear/quan-lot-boxer-den.png',
       'products/underwear/quan-lot-boxer-navy.png',
@@ -657,6 +694,7 @@ export const productsSeed = [
     name: 'Quần lót brief',
     price: 69000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/quan-lot-brief-den.png',
     images: [
       'products/underwear/quan-lot-brief-den.png',
       'products/underwear/quan-lot-brief-xam.png',
@@ -675,6 +713,7 @@ export const productsSeed = [
     name: 'Quần trunks',
     price: 69000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/quan-lot-trunks-navy.png',
     images: [
       'products/underwear/quan-lot-trunks-navy.png',
       'products/underwear/quan-lot-trunks-xam.png',
@@ -697,6 +736,7 @@ export const productsSeed = [
     name: 'Tất cổ ngắn',
     price: 29000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/tat-co-ngan-trang.png',
     images: [
       'products/underwear/tat-co-ngan-trang.png',
       'products/underwear/tat-co-ngan-navy.png',
@@ -719,6 +759,7 @@ export const productsSeed = [
     name: 'Tất basic',
     price: 29000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/tat-den.png',
     images: [
       'products/underwear/tat-den.png',
       'products/underwear/tat-do.png',
@@ -741,6 +782,7 @@ export const productsSeed = [
     name: 'Tất cổ thấp',
     price: 29000,
     category: Category.UNDERWEAR,
+    thumbnailKey: 'products/underwear/tat-co-thap-den.png',
     images: [
       'products/underwear/tat-co-thap-den.png',
       'products/underwear/tat-co-thap-xam.png',

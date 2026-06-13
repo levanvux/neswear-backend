@@ -18,6 +18,7 @@ export class ProductSeeder {
         name: data.name,
         price: data.price,
         category: data.category,
+        thumbnailKey: data.thumbnailKey,
 
         images: data.images.map((imageKey) => ({
           imageKey,

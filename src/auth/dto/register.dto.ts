@@ -3,6 +3,7 @@ import {
   IsArray,
   IsEmail,
   IsString,
+  Matches,
   MinLength,
   ValidateNested,
 } from 'class-validator';
@@ -26,7 +27,9 @@ export class RegisterDto {
   @IsString()
   lastName!: string;
 
-  @IsString()
+  @Matches(/^0\d{9}$/, {
+    message: 'Invalid Vietnamese phone number',
+  })
   phoneNumber!: string;
 
   @IsArray()

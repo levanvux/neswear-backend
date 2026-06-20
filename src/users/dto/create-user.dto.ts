@@ -2,8 +2,8 @@ import {
   IsArray,
   IsEmail,
   IsOptional,
-  IsPhoneNumber,
   IsString,
+  Matches,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -22,7 +22,9 @@ export class CreateUserDto {
   @IsString()
   lastName!: string;
 
-  @IsString()
+  @Matches(/^0\d{9}$/, {
+    message: 'Invalid Vietnamese phone number',
+  })
   phoneNumber!: string;
 
   @IsOptional()

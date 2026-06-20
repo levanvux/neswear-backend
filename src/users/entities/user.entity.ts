@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
+import { Role } from '../../common/enums/role.enum';
 
 @Entity()
 export class User {
@@ -22,10 +23,10 @@ export class User {
   phoneNumber!: string;
 
   @Column({ nullable: true })
-  avatarUrl?: string;
+  avatarKey?: string;
 
-  @Column({ default: 'customer' })
-  role!: string;
+  @Column({ default: Role.CUSTOMER })
+  role!: Role;
 
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
   addresses!: Address[];

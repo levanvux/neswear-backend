@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { SeedModule } from './seed/seed.module';
 import { StorageModule } from './storage/storage.module';
 import { MinioModule } from './minio/minio.module';
+import { LocationsModule } from './locations/locations.module';
+import { RedisModule } from './redis/redis.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -39,6 +41,8 @@ import { MinioModule } from './minio/minio.module';
     SeedModule,
     StorageModule,
     MinioModule,
+    LocationsModule,
+    RedisModule,
   ],
 })
 export class AppModule {}

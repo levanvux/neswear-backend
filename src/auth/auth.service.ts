@@ -1,19 +1,28 @@
-import * as bcrypt from 'bcrypt';
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { ConfigService } from '@nestjs/config';
+
+import * as bcrypt from 'bcrypt';
+
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { UsersService } from '../users/users.service';
+import { StorageService } from '../storage/storage.service';
+import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { Role } from '../common/enums/role.enum';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly storageService: StorageService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -41,6 +50,21 @@ export class AuthService {
     });
   }
 
+  async generateTokens(payload: JwtPayload) {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.getOrThrow('JWT_SECRET'),
+        expiresIn: '45m',
+      }),
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.getOrThrow('JWT_REFRESH_SECRET'),
+        expiresIn: '7d',
+      }),
+    ]);
+
+    return { access_token: accessToken, refresh_token: refreshToken };
+  }
+
   async login(loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
     if (!user) {
@@ -53,6 +77,41 @@ export class AuthService {
     }
 
     const payload = { email: user.email, sub: user.id, role: user.role };
-    return { access_token: this.jwtService.signAsync(payload) };
+    return this.generateTokens(payload);
+  }
+
+  async refreshTokens(userId: number, email: string, role: Role) {
+    const user = await this.usersService.findById(userId);
+    if (!user) throw new UnauthorizedException();
+
+    const payload = { email, sub: userId, role };
+    return this.generateTokens(payload);
+  }
+
+  async getMe(userId: number) {
+    const user = await this.usersService.findById(userId);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const userAddresses = user.addresses?.map((addr) => ({
+      street: addr.street,
+      ward: addr.ward,
+      district: addr.district,
+      city: addr.city,
+    }));
+
+    return {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      avatarUrl: await this.storageService.getPresignedUrl(
+        user.avatarKey ?? 'avatars/default.png',
+      ),
+      role: user.role,
+      addresses: userAddresses ?? [],
+    };
   }
 }

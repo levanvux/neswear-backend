@@ -68,8 +68,8 @@ export class ProductsService {
       .groupBy('product.id')
       .addGroupBy('product.name')
       .addGroupBy('product.price')
-      .skip((page - 1) * limit)
-      .take(limit)
+      .limit(limit)
+      .offset((page - 1) * limit)
       .getRawMany();
 
     return {

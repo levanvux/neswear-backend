@@ -11,6 +11,12 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
+  async findById(id: number) {
+    return this.usersRepository.findOne({
+      where: { id },
+    });
+  }
+
   async findByEmail(email: string) {
     return this.usersRepository.findOne({
       where: { email },
@@ -21,7 +27,6 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const user = this.usersRepository.create(createUserDto);
     const savedUser = await this.usersRepository.save(user);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = savedUser;
     return result;
   }

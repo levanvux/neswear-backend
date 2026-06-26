@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Product } from '../products/entities/product.entity';
-import { productsSeed } from './data/products.seed';
+import { Product } from '../../products/entities/product.entity';
+import { productsSeed } from '../data/products.seed';
 
 @Injectable()
 export class ProductSeeder {

@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User } from '../users/entities/user.entity';
-import { Role } from '../common/enums/role.enum';
+import * as bcrypt from 'bcrypt';
+
+import { User } from '../../users/entities/user.entity';
+import { Role } from '../../common/enums/role.enum';
 
 @Injectable()
 export class UserSeeder {
@@ -16,7 +18,7 @@ export class UserSeeder {
     const users = [
       {
         email: 'admin@neswear.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'System',
         lastName: 'Admin',
         phoneNumber: '0900000001',
@@ -26,6 +28,7 @@ export class UserSeeder {
         addresses: [
           {
             street: '1 Nguyen Hue',
+            ward: 'Ben Nghe Ward',
             district: 'District 1',
             city: 'Ho Chi Minh City',
           },
@@ -34,7 +37,7 @@ export class UserSeeder {
 
       {
         email: 'manager@neswear.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Store',
         lastName: 'Manager',
         phoneNumber: '0900000002',
@@ -43,7 +46,8 @@ export class UserSeeder {
 
         addresses: [
           {
-            street: '15 Le Loi',
+            street: '123 Le Loi',
+            ward: 'Ben Thanh Ward',
             district: 'District 1',
             city: 'Ho Chi Minh City',
           },
@@ -52,7 +56,7 @@ export class UserSeeder {
 
       {
         email: 'nguyenvana@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Van',
         lastName: 'Nguyen',
         phoneNumber: '0901111111',
@@ -62,6 +66,7 @@ export class UserSeeder {
         addresses: [
           {
             street: '123 Tran Hung Dao',
+            ward: 'Ward 5',
             district: 'District 5',
             city: 'Ho Chi Minh City',
           },
@@ -70,7 +75,7 @@ export class UserSeeder {
 
       {
         email: 'tranthib@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Thi',
         lastName: 'Tran',
         phoneNumber: '0902222222',
@@ -80,6 +85,7 @@ export class UserSeeder {
         addresses: [
           {
             street: '45 Cach Mang Thang 8',
+            ward: 'Hoa Hung Ward',
             district: 'District 10',
             city: 'Ho Chi Minh City',
           },
@@ -88,7 +94,7 @@ export class UserSeeder {
 
       {
         email: 'levanc@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Van',
         lastName: 'Le',
         phoneNumber: '0903333333',
@@ -98,11 +104,13 @@ export class UserSeeder {
         addresses: [
           {
             street: '8 Pham Van Dong',
+            ward: 'Hiep Binh Chanh',
             district: 'Thu Duc',
             city: 'Ho Chi Minh City',
           },
           {
             street: '12 Le Van Viet',
+            ward: 'Tang Nhon Phu B',
             district: 'Thu Duc',
             city: 'Ho Chi Minh City',
           },
@@ -111,7 +119,7 @@ export class UserSeeder {
 
       {
         email: 'phamthid@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Thi',
         lastName: 'Pham',
         phoneNumber: '0904444444',
@@ -120,8 +128,9 @@ export class UserSeeder {
 
         addresses: [
           {
-            street: '88 Hai Ba Trung',
-            district: 'District 3',
+            street: '88 Le Van Khuong',
+            ward: 'Tan Thoi Hiep',
+            district: 'District 12',
             city: 'Ho Chi Minh City',
           },
         ],
@@ -129,7 +138,7 @@ export class UserSeeder {
 
       {
         email: 'hoange@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Anh',
         lastName: 'Hoang',
         phoneNumber: '0905555555',
@@ -138,8 +147,9 @@ export class UserSeeder {
 
         addresses: [
           {
-            street: '50 Nguyen Thi Minh Khai',
-            district: 'District 1',
+            street: '50 Le Thi Rieng',
+            ward: 'Thoi An',
+            district: 'District 12',
             city: 'Ho Chi Minh City',
           },
         ],
@@ -147,7 +157,7 @@ export class UserSeeder {
 
       {
         email: 'vubao@gmail.com',
-        password: '123456',
+        password: await bcrypt.hash('ab123456@', 10),
         firstName: 'Bao',
         lastName: 'Vu',
         phoneNumber: '0906666666',
@@ -157,6 +167,7 @@ export class UserSeeder {
         addresses: [
           {
             street: '21 Dien Bien Phu',
+            ward: 'P15',
             district: 'Binh Thanh',
             city: 'Ho Chi Minh City',
           },

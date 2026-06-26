@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as Minio from 'minio';
 import * as fs from 'fs';
 import * as path from 'path';
-import { MinioService } from '../minio/minio.service';
+import { MinioService } from '../../minio/minio.service';
 
 @Injectable()
 export class MinioSeeder {

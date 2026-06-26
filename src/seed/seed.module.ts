@@ -8,9 +8,9 @@ import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
 
 import { SeedService } from './seed.service';
-import { ProductSeeder } from './product.seeder';
-import { MinioSeeder } from './minio.seeder';
-import { UserSeeder } from './user.seeder';
+import { ProductSeeder } from './seeder/product.seeder';
+import { MinioSeeder } from './seeder/minio.seeder';
+import { UserSeeder } from './seeder/user.seeder';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Address, User, Product]), MinioModule],

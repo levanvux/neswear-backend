@@ -1,10 +1,9 @@
 import {
-  ArrayMinSize,
   IsArray,
   IsEmail,
+  IsOptional,
   IsString,
   Matches,
-  MinLength,
   ValidateNested,
 } from 'class-validator';
 import { CreateAddressDto } from '../../users/dto/create-address.dto';
@@ -15,7 +14,10 @@ export class RegisterDto {
   email!: string;
 
   @IsString()
-  @MinLength(8)
+  @Matches(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/, {
+    message:
+      'Use a password with at least 8 characters, including one lowercase letter, one number, and one special character.',
+  })
   password!: string;
 
   @IsString()
@@ -32,9 +34,9 @@ export class RegisterDto {
   })
   phoneNumber!: string;
 
+  @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => CreateAddressDto)
-  addresses!: CreateAddressDto[];
+  addresses?: CreateAddressDto[];
 }

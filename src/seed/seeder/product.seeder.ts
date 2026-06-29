@@ -16,6 +16,7 @@ export class ProductSeeder {
     for (const data of productsSeed) {
       const product = this.productRepository.create({
         name: data.name,
+        slug: data.slug,
         price: data.price,
         category: data.category,
         thumbnailKey: data.thumbnailKey,

@@ -17,7 +17,11 @@ $ docker compose up --build
 3. Seed data:
 
 ```bash
-docker compose exec backend npm run seed
+# Get the backend container name
+docker ps
+
+# Replace with the backend container name found above
+docker compose exec <replace-me> npm run seed
 ```
 
 4. There you go!

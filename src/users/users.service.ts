@@ -29,6 +29,7 @@ export class UsersService {
     const user = this.usersRepository.create(createUserDto);
     const savedUser = await this.usersRepository.save(user);
     const { password, ...result } = savedUser;
+    if (!password) return {};
     return result;
   }
 }

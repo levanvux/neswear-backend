@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import slugify from 'slugify';
 
 import { Product } from './entities/product.entity';
 import { ProductVariant } from './entities/product-variant.entity';
@@ -28,15 +29,16 @@ export class ProductsService {
   ) {}
 
   async findAll(queryDto: ProductQueryDto) {
-    const { search, category, sort, page, limit } = queryDto;
+    const { search, category, sort, page, limit, min_price, max_price } =
+      queryDto;
 
     const query = this.productRepository
       .createQueryBuilder('product')
       .leftJoin('product.variants', 'variant');
 
     if (search) {
-      query.andWhere('product.name LIKE :search', {
-        search: `%${search}%`,
+      query.andWhere('product.slug ILIKE :search', {
+        search: `%${slugify(search, { lower: true, strict: true, locale: 'vi' })}%`,
       });
     }
 
@@ -46,12 +48,20 @@ export class ProductsService {
       });
     }
 
+    if (min_price !== undefined) {
+      query.andWhere('product.price >= :min_price', { min_price });
+    }
+
+    if (max_price !== undefined) {
+      query.andWhere('product.price <= :max_price', { max_price });
+    }
+
     if (sort) {
       if (sort === 'popular') {
         // query.orderBy();
-      } else if (sort === 'price-asc') {
+      } else if (sort === 'price_asc') {
         query.orderBy('product.price', 'ASC');
-      } else if (sort === 'price-desc') {
+      } else if (sort === 'price_desc') {
         query.orderBy('product.price', 'DESC');
       }
     }
@@ -61,6 +71,7 @@ export class ProductsService {
     const data = await query
       .select('product.id', 'id')
       .addSelect('product.name', 'name')
+      .addSelect('product.slug', 'slug')
       .addSelect('product.price', 'price')
       .addSelect('product.thumbnailKey', 'thumbnailKey')
       .addSelect('COUNT(DISTINCT variant.color)', 'colorCount')
@@ -68,8 +79,8 @@ export class ProductsService {
       .groupBy('product.id')
       .addGroupBy('product.name')
       .addGroupBy('product.price')
-      .skip((page - 1) * limit)
-      .take(limit)
+      .limit(limit)
+      .offset((page - 1) * limit)
       .getRawMany();
 
     return {
@@ -90,9 +101,9 @@ export class ProductsService {
     };
   }
 
-  async findOne(id: number) {
+  async findOneBySlug(slug: string) {
     const product = await this.productRepository.findOne({
-      where: { id },
+      where: { slug },
       relations: ['variants', 'images'],
     });
 
@@ -118,6 +129,11 @@ export class ProductsService {
     const product = await this.productRepository.save(
       this.productRepository.create({
         name: createProductDto.name,
+        slug: slugify(createProductDto.name, {
+          lower: true,
+          strict: true,
+          locale: 'vi',
+        }),
         price: createProductDto.price,
         category: createProductDto.category,
         variants: createProductDto.variants,
@@ -185,7 +201,17 @@ export class ProductsService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    await this.productRepository.update(id, updateProductDto);
+    const data = { ...updateProductDto };
+
+    if (updateProductDto.name) {
+      data.name = slugify(updateProductDto.name, {
+        lower: true,
+        strict: true,
+        locale: 'vi',
+      });
+    }
+
+    await this.productRepository.update(id, data);
 
     return this.productRepository.findOne({ where: { id } });
   }

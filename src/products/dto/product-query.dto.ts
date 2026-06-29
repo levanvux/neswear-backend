@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsIn, IsOptional, Min } from 'class-validator';
+import { IsIn, IsInt, IsOptional, Max, Min } from 'class-validator';
 
 export class ProductQueryDto {
   @IsOptional()
@@ -9,8 +9,8 @@ export class ProductQueryDto {
   category?: string;
 
   @IsOptional()
-  @IsIn(['popular', 'price-asc', 'price-desc'])
-  sort: 'popular' | 'price-asc' | 'price-desc' = 'popular';
+  @IsIn(['popular', 'price_asc', 'price_desc'])
+  sort: 'popular' | 'price_asc' | 'price_desc' = 'popular';
 
   @IsOptional()
   @Type(() => Number)
@@ -20,5 +20,19 @@ export class ProductQueryDto {
   @IsOptional()
   @Type(() => Number)
   @Min(1)
-  limit = 6;
+  limit = 8;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  @Max(10_000_000)
+  min_price?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  @Max(10_000_000)
+  max_price?: number;
 }

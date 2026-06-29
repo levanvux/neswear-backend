@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
 import { Role } from '../../common/enums/role.enum';
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -29,5 +29,5 @@ export class User {
   role!: Role;
 
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
-  addresses!: Address[];
+  addresses?: Address[];
 }

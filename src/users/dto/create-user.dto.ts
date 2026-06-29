@@ -14,6 +14,10 @@ export class CreateUserDto {
   email!: string;
 
   @IsString()
+  @Matches(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/, {
+    message:
+      'Use a password with at least 8 characters, including one lowercase letter, one number, and one special character.',
+  })
   password!: string;
 
   @IsString()
@@ -31,8 +35,9 @@ export class CreateUserDto {
   @IsString()
   avatarUrl?: string;
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateAddressDto)
-  addresses!: CreateAddressDto[];
+  addresses?: CreateAddressDto[];
 }

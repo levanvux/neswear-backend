@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import { Category } from '../../common/enums/category.enum';
 import { Size } from '../../common/enums/size.enum';
 
@@ -5,6 +6,7 @@ export const productsSeed = [
   // ACCESSORY
   {
     name: 'Balo đa năng',
+    slug: slugify('Balo đa năng', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/balo-da-nang.png',
@@ -17,15 +19,17 @@ export const productsSeed = [
 
   {
     name: 'Mũ bucket',
+    slug: slugify('Mũ bucket', { lower: true, strict: true, locale: 'vi' }),
     price: 99000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/mu-bucket.png',
     images: ['products/accessory/mu-bucket.png'],
-    variants: [{ color: 'beige', size: Size.M, stock: 30 }],
+    variants: [{ color: 'black', size: Size.M, stock: 30 }],
   },
 
   {
     name: 'Mũ beanie',
+    slug: slugify('Mũ beanie', { lower: true, strict: true, locale: 'vi' }),
     price: 79000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/mu-beanie-den.png',
@@ -41,6 +45,7 @@ export const productsSeed = [
 
   {
     name: 'Mũ lưỡi trai',
+    slug: slugify('Mũ lưỡi trai', { lower: true, strict: true, locale: 'vi' }),
     price: 89000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/mu-luoi-trai-den.png',
@@ -56,6 +61,7 @@ export const productsSeed = [
 
   {
     name: 'Thắt lưng da',
+    slug: slugify('Thắt lưng da', { lower: true, strict: true, locale: 'vi' }),
     price: 129000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/that-lung-da-den.png',
@@ -71,6 +77,7 @@ export const productsSeed = [
 
   {
     name: 'Thắt lưng đan',
+    slug: slugify('Thắt lưng đan', { lower: true, strict: true, locale: 'vi' }),
     price: 129000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/that-lung-dan-den.png',
@@ -86,6 +93,7 @@ export const productsSeed = [
 
   {
     name: 'Túi đeo chéo',
+    slug: slugify('Túi đeo chéo', { lower: true, strict: true, locale: 'vi' }),
     price: 199000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/tui-deo-cheo.png',
@@ -95,6 +103,11 @@ export const productsSeed = [
 
   {
     name: 'Túi bán nguyệt',
+    slug: slugify('Túi bán nguyệt', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 199000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/tui-ban-nguyet-trang.png',
@@ -114,6 +127,11 @@ export const productsSeed = [
 
   {
     name: 'Túi vải tái chế',
+    slug: slugify('Túi vải tái chế', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 99000,
     category: Category.ACCESSORY,
     thumbnailKey: 'products/accessory/tui-vai-tai-che.png',
@@ -123,7 +141,8 @@ export const productsSeed = [
 
   // JACKET
   {
-    name: 'Áo blazer đen',
+    name: 'Áo blazer',
+    slug: slugify('Áo blazer', { lower: true, strict: true, locale: 'vi' }),
     price: 499000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-blazer-den.png',
@@ -144,6 +163,7 @@ export const productsSeed = [
 
   {
     name: 'Áo canvas',
+    slug: slugify('Áo canvas', { lower: true, strict: true, locale: 'vi' }),
     price: 459000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-canvas-navy.png',
@@ -161,6 +181,7 @@ export const productsSeed = [
 
   {
     name: 'Áo harrington',
+    slug: slugify('Áo harrington', { lower: true, strict: true, locale: 'vi' }),
     price: 459000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-harrington-navy.png',
@@ -178,6 +199,7 @@ export const productsSeed = [
 
   {
     name: 'Áo phao',
+    slug: slugify('Áo phao', { lower: true, strict: true, locale: 'vi' }),
     price: 599000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-phao-be.png',
@@ -195,6 +217,7 @@ export const productsSeed = [
 
   {
     name: 'Áo chống nắng',
+    slug: slugify('Áo chống nắng', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-chong-nang-xam.png',
@@ -212,6 +235,7 @@ export const productsSeed = [
 
   {
     name: 'Áo măng tô',
+    slug: slugify('Áo măng tô', { lower: true, strict: true, locale: 'vi' }),
     price: 599000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-mang-to-nau-dam.png',
@@ -229,6 +253,7 @@ export const productsSeed = [
 
   {
     name: 'Áo blouson',
+    slug: slugify('Áo blouson', { lower: true, strict: true, locale: 'vi' }),
     price: 499000,
     category: Category.JACKET,
     thumbnailKey: 'products/jacket/ao-blouson-navy.png',
@@ -247,6 +272,7 @@ export const productsSeed = [
   // PANTS
   {
     name: 'Quần jean',
+    slug: slugify('Quần jean', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-jean-den.png',
@@ -264,6 +290,7 @@ export const productsSeed = [
 
   {
     name: 'Quần túi hộp',
+    slug: slugify('Quần túi hộp', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-tui-hop-xam.png',
@@ -284,6 +311,7 @@ export const productsSeed = [
 
   {
     name: 'Quần chino',
+    slug: slugify('Quần chino', { lower: true, strict: true, locale: 'vi' }),
     price: 259000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-chino-xam.png',
@@ -304,6 +332,7 @@ export const productsSeed = [
 
   {
     name: 'Quần shorts',
+    slug: slugify('Quần shorts', { lower: true, strict: true, locale: 'vi' }),
     price: 199000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-shorts-den.png',
@@ -321,6 +350,11 @@ export const productsSeed = [
 
   {
     name: 'Quần short đen thể thao',
+    slug: slugify('Quần short đen thể thao', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 199000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-shorts-the-thao-den.png',
@@ -341,6 +375,11 @@ export const productsSeed = [
 
   {
     name: 'Quần dài ống rộng',
+    slug: slugify('Quần dài ống rộng', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 299000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-dai-ong-rong-be.png',
@@ -358,6 +397,7 @@ export const productsSeed = [
 
   {
     name: 'Quần jogger',
+    slug: slugify('Quần jogger', { lower: true, strict: true, locale: 'vi' }),
     price: 249000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-jogger-den.png',
@@ -378,6 +418,7 @@ export const productsSeed = [
 
   {
     name: 'Quần nỉ',
+    slug: slugify('Quần nỉ', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-ni-xanh-la.png',
@@ -398,6 +439,7 @@ export const productsSeed = [
 
   {
     name: 'Quần tây',
+    slug: slugify('Quần tây', { lower: true, strict: true, locale: 'vi' }),
     price: 399000,
     category: Category.PANTS,
     thumbnailKey: 'products/pants/quan-tay-be.png',
@@ -419,6 +461,11 @@ export const productsSeed = [
   // SHIRT
   {
     name: 'Áo thun dài tay',
+    slug: slugify('Áo thun dài tay', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 149000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-dai-tay-xanh-duong.png',
@@ -442,6 +489,7 @@ export const productsSeed = [
 
   {
     name: 'Áo thun',
+    slug: slugify('Áo thun', { lower: true, strict: true, locale: 'vi' }),
     price: 99000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-trang.png',
@@ -470,6 +518,11 @@ export const productsSeed = [
 
   {
     name: 'Áo thun tay lở',
+    slug: slugify('Áo thun tay lở', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 129000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-tay-lo-xanh-reu.png',
@@ -500,6 +553,11 @@ export const productsSeed = [
 
   {
     name: 'Áo thun kẻ sọc',
+    slug: slugify('Áo thun kẻ sọc', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 129000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-ke-soc-vang.png',
@@ -525,6 +583,7 @@ export const productsSeed = [
 
   {
     name: 'Áo sơ mi',
+    slug: slugify('Áo sơ mi', { lower: true, strict: true, locale: 'vi' }),
     price: 399000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-so-mi-trang.png',
@@ -544,6 +603,7 @@ export const productsSeed = [
 
   {
     name: 'Áo hoodie nỉ',
+    slug: slugify('Áo hoodie nỉ', { lower: true, strict: true, locale: 'vi' }),
     price: 299000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-hoodie-ni-xam-dam.png',
@@ -564,6 +624,11 @@ export const productsSeed = [
 
   {
     name: 'Áo hoodie nỉ kéo khóa',
+    slug: slugify('Áo hoodie nỉ kéo khóa', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 299000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-hoodie-ni-keo-khoa-xanh-navy.png',
@@ -587,6 +652,7 @@ export const productsSeed = [
 
   {
     name: 'Áo nỉ',
+    slug: slugify('Áo nỉ', { lower: true, strict: true, locale: 'vi' }),
     price: 199000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-ni-do.png',
@@ -603,6 +669,11 @@ export const productsSeed = [
 
   {
     name: 'Áo thun cổ henley',
+    slug: slugify('Áo thun cổ henley', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 149000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-co-henley-xam.png',
@@ -626,6 +697,11 @@ export const productsSeed = [
 
   {
     name: 'Áo thun không tay',
+    slug: slugify('Áo thun không tay', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 99000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-thun-khong-tay-xanh-duong.png',
@@ -649,6 +725,7 @@ export const productsSeed = [
 
   {
     name: 'Áo ba lỗ',
+    slug: slugify('Áo ba lỗ', { lower: true, strict: true, locale: 'vi' }),
     price: 89000,
     category: Category.SHIRT,
     thumbnailKey: 'products/shirt/ao-ba-lo-hong.png',
@@ -673,6 +750,7 @@ export const productsSeed = [
   //UNDERWEAR
   {
     name: 'Quần boxer',
+    slug: slugify('Quần boxer', { lower: true, strict: true, locale: 'vi' }),
     price: 69000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/quan-lot-boxer-den.png',
@@ -692,6 +770,11 @@ export const productsSeed = [
 
   {
     name: 'Quần lót brief',
+    slug: slugify('Quần lót brief', {
+      lower: true,
+      strict: true,
+      locale: 'vi',
+    }),
     price: 69000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/quan-lot-brief-den.png',
@@ -711,6 +794,7 @@ export const productsSeed = [
 
   {
     name: 'Quần trunks',
+    slug: slugify('Quần trunks', { lower: true, strict: true, locale: 'vi' }),
     price: 69000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/quan-lot-trunks-navy.png',
@@ -734,6 +818,7 @@ export const productsSeed = [
 
   {
     name: 'Tất cổ ngắn',
+    slug: slugify('Tất cổ ngắn', { lower: true, strict: true, locale: 'vi' }),
     price: 29000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/tat-co-ngan-trang.png',
@@ -757,6 +842,7 @@ export const productsSeed = [
 
   {
     name: 'Tất basic',
+    slug: slugify('Tất basic', { lower: true, strict: true, locale: 'vi' }),
     price: 29000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/tat-den.png',
@@ -780,6 +866,7 @@ export const productsSeed = [
 
   {
     name: 'Tất cổ thấp',
+    slug: slugify('Tất cổ thấp', { lower: true, strict: true, locale: 'vi' }),
     price: 29000,
     category: Category.UNDERWEAR,
     thumbnailKey: 'products/underwear/tat-co-thap-den.png',

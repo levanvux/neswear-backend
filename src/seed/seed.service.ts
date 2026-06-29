@@ -6,9 +6,9 @@ import { Address } from '../users/entities/address.entity';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
 
-import { UserSeeder } from './user.seeder';
-import { ProductSeeder } from './product.seeder';
-import { MinioSeeder } from './minio.seeder';
+import { UserSeeder } from './seeder/user.seeder';
+import { ProductSeeder } from './seeder/product.seeder';
+import { MinioSeeder } from './seeder/minio.seeder';
 
 @Injectable()
 export class SeedService {

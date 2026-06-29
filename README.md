@@ -20,7 +20,13 @@ $ docker compose up -d
 $ npm install
 ```
 
-4. Run the project:
+4. Seed data
+
+```bash
+$ npm run seed
+```
+
+5. Run the project:
 
 ```bash
 $ npm run start

@@ -20,26 +20,26 @@ export class StorageService implements OnModuleInit {
     }
   }
 
-  async upload(uploadPath: string, file: Express.Multer.File) {
-    const objectName = posix.join(
-      uploadPath,
-      `${randomUUID()}${extname(file.originalname)}`,
-    );
+  // async upload(uploadPath: string, file: Express.Multer.File) {
+  //   const objectName = posix.join(
+  //     uploadPath,
+  //     `${randomUUID()}${extname(file.originalname)}`,
+  //   );
 
-    await this.client.putObject(
-      this.bucket,
-      objectName,
-      file.buffer,
-      file.size,
-      { 'Content-Type': file.mimetype },
-    );
+  //   await this.client.putObject(
+  //     this.bucket,
+  //     objectName,
+  //     file.buffer,
+  //     file.size,
+  //     { 'Content-Type': file.mimetype },
+  //   );
 
-    return { objectName };
-  }
+  //   return { objectName };
+  // }
 
-  async delete(objectName: string) {
-    await this.client.removeObject(this.bucket, objectName);
-  }
+  // async delete(objectName: string) {
+  //   await this.client.removeObject(this.bucket, objectName);
+  // }
 
   async getPresignedUrl(
     objectName: string,

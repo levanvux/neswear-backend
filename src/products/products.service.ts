@@ -122,139 +122,139 @@ export class ProductsService {
     };
   }
 
-  async create(
-    createProductDto: CreateProductDto,
-    files?: Express.Multer.File[],
-  ) {
-    const product = await this.productRepository.save(
-      this.productRepository.create({
-        name: createProductDto.name,
-        slug: slugify(createProductDto.name, {
-          lower: true,
-          strict: true,
-          locale: 'vi',
-        }),
-        price: createProductDto.price,
-        category: createProductDto.category,
-        variants: createProductDto.variants,
-      }),
-    );
+  // async create(
+  //   createProductDto: CreateProductDto,
+  //   files?: Express.Multer.File[],
+  // ) {
+  //   const product = await this.productRepository.save(
+  //     this.productRepository.create({
+  //       name: createProductDto.name,
+  //       slug: slugify(createProductDto.name, {
+  //         lower: true,
+  //         strict: true,
+  //         locale: 'vi',
+  //       }),
+  //       price: createProductDto.price,
+  //       category: createProductDto.category,
+  //       variants: createProductDto.variants,
+  //     }),
+  //   );
 
-    const imageKeys: string[] = [];
-    if (files) {
-      for (const file of files) {
-        const res = await this.storageService.upload(
-          `products/${product.category}/${product.id}`,
-          file,
-        );
+  //   const imageKeys: string[] = [];
+  //   if (files) {
+  //     for (const file of files) {
+  //       const res = await this.storageService.upload(
+  //         `products/${product.category}/${product.id}`,
+  //         file,
+  //       );
 
-        imageKeys.push(res.objectName);
-      }
-    }
+  //       imageKeys.push(res.objectName);
+  //     }
+  //   }
 
-    const images = await this.productImageRepository.save(
-      imageKeys.map((key) => ({
-        productId: product.id,
-        imageKey: key,
-      })),
-    );
+  //   const images = await this.productImageRepository.save(
+  //     imageKeys.map((key) => ({
+  //       productId: product.id,
+  //       imageKey: key,
+  //     })),
+  //   );
 
-    return { ...product, images };
-  }
+  //   return { ...product, images };
+  // }
 
-  async createVariant(productId: number, dto: CreateProductVariantDto) {
-    const product = await this.productRepository.findOneBy({
-      id: productId,
-    });
+  // async createVariant(productId: number, dto: CreateProductVariantDto) {
+  //   const product = await this.productRepository.findOneBy({
+  //     id: productId,
+  //   });
 
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
+  //   if (!product) {
+  //     throw new NotFoundException('Product not found');
+  //   }
 
-    const variant = this.productVariantRepository.create({
-      ...dto,
-      productId,
-    });
+  //   const variant = this.productVariantRepository.create({
+  //     ...dto,
+  //     productId,
+  //   });
 
-    return this.productVariantRepository.save(variant);
-  }
+  //   return this.productVariantRepository.save(variant);
+  // }
 
-  async createImage(productId: number, file: Express.Multer.File) {
-    const product = await this.productRepository.findOneBy({
-      id: productId,
-    });
+  // async createImage(productId: number, file: Express.Multer.File) {
+  //   const product = await this.productRepository.findOneBy({
+  //     id: productId,
+  //   });
 
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
+  //   if (!product) {
+  //     throw new NotFoundException('Product not found');
+  //   }
 
-    const { objectName } = await this.storageService.upload(
-      `products/${product.category}/${product.id}`,
-      file,
-    );
+  //   const { objectName } = await this.storageService.upload(
+  //     `products/${product.category}/${product.id}`,
+  //     file,
+  //   );
 
-    const image = this.productImageRepository.create({
-      imageKey: objectName,
-      productId,
-    });
-    return this.productImageRepository.save(image);
-  }
+  //   const image = this.productImageRepository.create({
+  //     imageKey: objectName,
+  //     productId,
+  //   });
+  //   return this.productImageRepository.save(image);
+  // }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
-    const data = { ...updateProductDto };
+  // async update(id: number, updateProductDto: UpdateProductDto) {
+  //   const data = { ...updateProductDto };
 
-    if (updateProductDto.name) {
-      data.name = slugify(updateProductDto.name, {
-        lower: true,
-        strict: true,
-        locale: 'vi',
-      });
-    }
+  //   if (updateProductDto.name) {
+  //     data.name = slugify(updateProductDto.name, {
+  //       lower: true,
+  //       strict: true,
+  //       locale: 'vi',
+  //     });
+  //   }
 
-    await this.productRepository.update(id, data);
+  //   await this.productRepository.update(id, data);
 
-    return this.productRepository.findOne({ where: { id } });
-  }
+  //   return this.productRepository.findOne({ where: { id } });
+  // }
 
-  async updateVariant(id: number, updateVariantDto: UpdateProductVariantDto) {
-    await this.productVariantRepository.update(id, updateVariantDto);
+  // async updateVariant(id: number, updateVariantDto: UpdateProductVariantDto) {
+  //   await this.productVariantRepository.update(id, updateVariantDto);
 
-    return this.productVariantRepository.findOne({ where: { id } });
-  }
+  //   return this.productVariantRepository.findOne({ where: { id } });
+  // }
 
-  async remove(id: number) {
-    const product = await this.productRepository.findOne({ where: { id } });
+  // async remove(id: number) {
+  //   const product = await this.productRepository.findOne({ where: { id } });
 
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
+  //   if (!product) {
+  //     throw new NotFoundException('Product not found');
+  //   }
 
-    return this.productRepository.remove(product);
-  }
+  //   return this.productRepository.remove(product);
+  // }
 
-  async removeVariant(id: number) {
-    const variant = await this.productVariantRepository.findOne({
-      where: { id },
-    });
+  // async removeVariant(id: number) {
+  //   const variant = await this.productVariantRepository.findOne({
+  //     where: { id },
+  //   });
 
-    if (!variant) {
-      throw new NotFoundException('Product variant not found');
-    }
+  //   if (!variant) {
+  //     throw new NotFoundException('Product variant not found');
+  //   }
 
-    return this.productVariantRepository.remove(variant);
-  }
+  //   return this.productVariantRepository.remove(variant);
+  // }
 
-  async removeImage(id: number) {
-    const image = await this.productImageRepository.findOne({
-      where: { id },
-    });
+  // async removeImage(id: number) {
+  //   const image = await this.productImageRepository.findOne({
+  //     where: { id },
+  //   });
 
-    if (!image) {
-      throw new NotFoundException('Product image not found');
-    }
+  //   if (!image) {
+  //     throw new NotFoundException('Product image not found');
+  //   }
 
-    await this.storageService.delete(image.imageKey);
+  //   await this.storageService.delete(image.imageKey);
 
-    return this.productImageRepository.remove(image);
-  }
+  //   return this.productImageRepository.remove(image);
+  // }
 }

@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { MinioService } from '../minio/minio.service';
 import * as Minio from 'minio';
-import { posix, extname } from 'path';
-import { randomUUID } from 'crypto';
+// import { posix, extname } from 'path';
+// import { randomUUID } from 'crypto';
 
 @Injectable()
 export class StorageService implements OnModuleInit {

@@ -8,11 +8,11 @@ import { ProductVariant } from './entities/product-variant.entity';
 import { ProductImage } from './entities/product-image.entity';
 import { StorageService } from '../storage/storage.service';
 
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+// import { CreateProductDto } from './dto/create-product.dto';
+// import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductQueryDto } from './dto/product-query.dto';
-import { CreateProductVariantDto } from './dto/create-product-variant.dto';
-import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
+// import { CreateProductVariantDto } from './dto/create-product-variant.dto';
+// import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 import { ProductCard } from './interfaces/product-card.interface';
 
 @Injectable()

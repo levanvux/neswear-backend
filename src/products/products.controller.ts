@@ -1,31 +1,31 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
-  Delete,
   Query,
-  UseGuards,
-  UseInterceptors,
-  UploadedFiles,
+  // Post,
+  // Body,
+  // Patch,
+  // Delete,
+  // UseGuards,
+  // UseInterceptors,
+  // UploadedFiles,
 } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+// import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 import { ProductsService } from './products.service';
 import { ProductQueryDto } from './dto/product-query.dto';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { CreateProductVariantDto } from './dto/create-product-variant.dto';
-import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
+// import { CreateProductDto } from './dto/create-product.dto';
+// import { UpdateProductDto } from './dto/update-product.dto';
+// import { CreateProductVariantDto } from './dto/create-product-variant.dto';
+// import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 
-import { Roles } from '../auth/decorators/roles.decorator';
-import { Role } from '../common/enums/role.enum';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { JwtGuard } from '../auth/guards/jwt.guard';
-import { UploadedImage } from '../common/decorators/uploaded-image.decorator';
-import { uploadImagesConfig } from '../common/configs/uploadImages.config';
+// import { Roles } from '../auth/decorators/roles.decorator';
+// import { Role } from '../common/enums/role.enum';
+// import { RolesGuard } from '../auth/guards/roles.guard';
+// import { JwtGuard } from '../auth/guards/jwt.guard';
+// import { UploadedImage } from '../common/decorators/uploaded-image.decorator';
+// import { uploadImagesConfig } from '../common/configs/uploadImages.config';
 
 @Controller('products')
 export class ProductsController {

@@ -36,9 +36,9 @@ export class ProductsController {
     return this.productsService.findAll(productQueryDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
+  @Get(':slug')
+  findOneBySlug(@Param('slug') slug: string) {
+    return this.productsService.findOneBySlug(slug);
   }
 
   @UseGuards(JwtGuard, RolesGuard)

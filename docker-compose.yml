@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:16
-    # container_name: neswear_postgres_server
+    container_name: neswear_postgres_server
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}

@@ -20,7 +20,7 @@ docker compose up --build
 docker compose exec backend npm run seed
 ```
 
-4. There you go!
+4. There you go! After the above steps, access http://localhost:3001/health
 
 <!--
 1. Create `.env` file from the `.env.example` file (modify the values as needed).

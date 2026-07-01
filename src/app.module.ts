@@ -12,6 +12,7 @@ import { StorageModule } from './storage/storage.module';
 import { MinioModule } from './minio/minio.module';
 import { LocationsModule } from './locations/locations.module';
 import { RedisModule } from './redis/redis.module';
+import { HealthModule } from './health/health.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -43,6 +44,7 @@ import { RedisModule } from './redis/redis.module';
     MinioModule,
     LocationsModule,
     RedisModule,
+    HealthModule,
   ],
 })
 export class AppModule {}

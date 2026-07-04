@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+   app.setGlobalPrefix("api");
+
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
 
   if (process.env.NODE_ENV === 'development') {

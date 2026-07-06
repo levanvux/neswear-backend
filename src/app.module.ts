@@ -27,10 +27,10 @@ import { HealthModule } from './health/health.module';
         password: configService.getOrThrow<string>('PG_PASSWORD'),
         database: configService.getOrThrow<string>('PG_DB'),
         autoLoadEntities: true,
-        synchronize:
-          configService.getOrThrow<string>('NODE_ENV') === 'development'
-            ? true
-            : false,
+        synchronize: true,
+        // configService.getOrThrow<string>('NODE_ENV') === 'development'
+        //   ? true
+        //   : false,
       }),
     }),
     UsersModule,

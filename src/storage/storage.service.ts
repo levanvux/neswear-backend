@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { MinioService } from '../minio/minio.service';
+import { ConfigService } from '@nestjs/config';
 import * as Minio from 'minio';
+import { MinioService } from '../minio/minio.service';
 // import { posix, extname } from 'path';
 // import { randomUUID } from 'crypto';
 
@@ -8,7 +9,10 @@ import * as Minio from 'minio';
 export class StorageService implements OnModuleInit {
   private readonly bucket: string;
   private readonly client: Minio.Client;
-  constructor(private readonly minioService: MinioService) {
+  constructor(
+    private readonly minioService: MinioService,
+    private readonly configService: ConfigService,
+  ) {
     this.bucket = this.minioService.bucket;
     this.client = this.minioService.client;
   }
@@ -45,10 +49,20 @@ export class StorageService implements OnModuleInit {
     objectName: string,
     expirySeconds: number = 3600,
   ): Promise<string> {
-    return this.client.presignedGetObject(
+    const url = await this.client.presignedGetObject(
       this.bucket,
       objectName,
       expirySeconds,
     );
+
+    const minioUrl = this.configService.get<string>('MINIO_PUBLIC_URL');
+
+    if (!minioUrl || minioUrl === 'yours') {
+      return url;
+    }
+
+    const parsedUrl = new URL(url);
+
+    return `${minioUrl}${parsedUrl.pathname}${parsedUrl.search}`;
   }
 }

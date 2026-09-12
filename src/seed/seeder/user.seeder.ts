@@ -29,8 +29,8 @@ export class UserSeeder {
           {
             street: '1 Nguyen Hue',
             ward: 'Ben Nghe Ward',
-            district: 'District 1',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -48,8 +48,8 @@ export class UserSeeder {
           {
             street: '123 Le Loi',
             ward: 'Ben Thanh Ward',
-            district: 'District 1',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -67,8 +67,8 @@ export class UserSeeder {
           {
             street: '123 Tran Hung Dao',
             ward: 'Ward 5',
-            district: 'District 5',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -86,8 +86,8 @@ export class UserSeeder {
           {
             street: '45 Cach Mang Thang 8',
             ward: 'Hoa Hung Ward',
-            district: 'District 10',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -105,13 +105,12 @@ export class UserSeeder {
           {
             street: '8 Pham Van Dong',
             ward: 'Hiep Binh Chanh',
-            district: 'Thu Duc',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
           {
             street: '12 Le Van Viet',
             ward: 'Tang Nhon Phu B',
-            district: 'Thu Duc',
             city: 'Ho Chi Minh City',
           },
         ],
@@ -130,8 +129,8 @@ export class UserSeeder {
           {
             street: '88 Le Van Khuong',
             ward: 'Tan Thoi Hiep',
-            district: 'District 12',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -149,8 +148,8 @@ export class UserSeeder {
           {
             street: '50 Le Thi Rieng',
             ward: 'Thoi An',
-            district: 'District 12',
             city: 'Ho Chi Minh City',
+            isDefault: true,
           },
         ],
       },
@@ -168,8 +167,27 @@ export class UserSeeder {
           {
             street: '21 Dien Bien Phu',
             ward: 'P15',
-            district: 'Binh Thanh',
             city: 'Ho Chi Minh City',
+            isDefault: true,
+          },
+        ],
+      },
+
+      {
+        email: 'de@mo.com',
+        password: await bcrypt.hash('welcome123@', 10),
+        firstName: 'Demo',
+        lastName: 'Neswear',
+        phoneNumber: '0912345678',
+        role: Role.CUSTOMER,
+        avatarKey: 'avatars/default.png',
+
+        addresses: [
+          {
+            street: '123',
+            ward: 'Phường Thủ Dầu Một',
+            city: 'Thành phố Hồ Chí Minh',
+            isDefault: true,
           },
         ],
       },

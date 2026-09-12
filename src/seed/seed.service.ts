@@ -8,7 +8,6 @@ import { Product } from '../products/entities/product.entity';
 
 import { UserSeeder } from './seeder/user.seeder';
 import { ProductSeeder } from './seeder/product.seeder';
-import { MinioSeeder } from './seeder/minio.seeder';
 
 @Injectable()
 export class SeedService {
@@ -24,15 +23,12 @@ export class SeedService {
 
     private readonly userSeeder: UserSeeder,
     private readonly productSeeder: ProductSeeder,
-    private readonly minioSeeder: MinioSeeder,
   ) {}
 
   async run() {
     await this.addressRepository.createQueryBuilder().delete().execute();
     await this.userRepository.createQueryBuilder().delete().execute();
     await this.productRepository.createQueryBuilder().delete().execute();
-
-    await this.minioSeeder.seed();
 
     await this.userSeeder.seed();
 

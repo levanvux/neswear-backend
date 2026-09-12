@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -12,6 +13,9 @@ export class ProductImage {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt!: Date;
+
   @Column()
   imageKey!: string;
 
@@ -22,5 +26,5 @@ export class ProductImage {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'productId' })
-  product!: Product;
+  product?: Product;
 }

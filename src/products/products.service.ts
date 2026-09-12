@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import slugify from 'slugify';
@@ -113,13 +117,44 @@ export class ProductsService {
 
     return {
       ...product,
-      images: await Promise.all(
-        product.images.map(async (img) => ({
-          ...img,
-          imageUrl: await this.storageService.getPresignedUrl(img.imageKey),
-        })),
+      thumbnailUrl: await this.storageService.getPresignedUrl(
+        product.thumbnailKey,
       ),
+      images: product.images
+        ? await Promise.all(
+            product.images.map(async (img) => ({
+              ...img,
+              imageUrl: await this.storageService.getPresignedUrl(img.imageKey),
+            })),
+          )
+        : [],
     };
+  }
+
+  async findVariant(variantId: number) {
+    const variant = await this.productVariantRepository.findOne({
+      where: {
+        id: variantId,
+      },
+      // relations: {
+      //   product: true,
+      // },
+    });
+
+    if (!variant) {
+      throw new NotFoundException('Product variant not found');
+    }
+
+    return variant;
+  }
+
+  async validateVariantStock(variantId: number, requestedQuantity: number) {
+    const variant = await this.findVariant(variantId);
+    if (variant.stock < requestedQuantity) {
+      throw new BadRequestException('Product variant stock is insufficient');
+    }
+
+    return variant;
   }
 
   // async create(

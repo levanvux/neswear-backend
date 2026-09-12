@@ -1,10 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
 import { OrderItem } from '../../orders/entities/order-item.entity';
@@ -14,6 +15,12 @@ import { Size } from '../../common/enums/size.enum';
 export class ProductVariant {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt!: Date;
 
   @Column()
   color!: string;
@@ -27,15 +34,11 @@ export class ProductVariant {
   @Column({ default: 0 })
   stock!: number;
 
-  @Column()
-  productId!: number;
-
   @ManyToOne(() => Product, (product) => product.variants, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'productId' })
   product!: Product;
 
   @OneToMany(() => OrderItem, (orderItem) => orderItem.productVariant)
-  orderItems!: OrderItem[];
+  orderItems?: OrderItem[];
 }

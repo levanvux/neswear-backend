@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { StorageService } from './storage.service';
-import { MinioModule } from '../minio/minio.module';
+import { RedisModule } from '../redis/redis.module';
 
 @Module({
-  imports: [MinioModule],
+  imports: [RedisModule],
   providers: [StorageService],
   exports: [StorageService],
 })

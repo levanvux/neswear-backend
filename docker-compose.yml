@@ -1,4 +1,8 @@
 version: "3.8"
+
+networks:
+  neswear_default:
+    name: neswear_default
 services:
   postgres:
     image: postgres:16
@@ -8,22 +12,26 @@ services:
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: ${PG_DB}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - neswear_default
 
-  minio:
-    image: minio/minio
-    container_name: minio_server
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: ${MINIO_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
-    command: server /data --console-address ":9001"
-    volumes:
-      - minio_data:/data
+  # minio:
+  #   image: minio/minio
+  #   container_name: minio_server
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   environment:
+  #     MINIO_ROOT_USER: ${MINIO_USER}
+  #     MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+  #   command: server /data --console-address ":9001"
+  #   volumes:
+  #     - minio_data:/data
+  #   networks:
+  #     - neswear_default
 
   redis:
     image: redis:7-alpine
@@ -32,18 +40,22 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    networks:
+      - neswear_default
 
-  backend:
-    build: .
-    ports:
-      - "3001:3001"
-    env_file:
-      - .env
-    depends_on:
-      - postgres
-      - redis
-      - minio
+  # backend:
+  #   build: .
+  #   ports:
+  #     - "3001:3001"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #     - minio
+  #   networks:
+  #     - neswear_default
 
 volumes:
   postgres_data:

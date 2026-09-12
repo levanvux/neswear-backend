@@ -1,27 +1,38 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as Minio from 'minio';
-import { MinioService } from '../minio/minio.service';
+
+import { DefaultAzureCredential } from '@azure/identity';
+import {
+  BlobServiceClient,
+  generateBlobSASQueryParameters,
+  ContainerSASPermissions,
+} from '@azure/storage-blob';
 // import { posix, extname } from 'path';
 // import { randomUUID } from 'crypto';
 
+import { RedisService } from '../redis/redis.service';
 @Injectable()
-export class StorageService implements OnModuleInit {
-  private readonly bucket: string;
-  private readonly client: Minio.Client;
-  constructor(
-    private readonly minioService: MinioService,
-    private readonly configService: ConfigService,
-  ) {
-    this.bucket = this.minioService.bucket;
-    this.client = this.minioService.client;
-  }
+export class StorageService {
+  private readonly accountName: string;
+  private readonly containerName: string;
+  private readonly endpoint: string;
+  private readonly client: BlobServiceClient;
 
-  async onModuleInit() {
-    const exists = await this.client.bucketExists(this.bucket);
-    if (!exists) {
-      await this.client.makeBucket(this.bucket);
-    }
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly cacheService: RedisService,
+  ) {
+    this.accountName = configService.getOrThrow('AZURE_STORAGE_ACCOUNT_NAME');
+    this.containerName = configService.getOrThrow(
+      'AZURE_STORAGE_CONTAINER_NAME',
+    );
+
+    this.endpoint = `https://${this.accountName}.blob.core.windows.net`;
+
+    this.client = new BlobServiceClient(
+      this.endpoint,
+      new DefaultAzureCredential(),
+    );
   }
 
   // async upload(uploadPath: string, file: Express.Multer.File) {
@@ -47,22 +58,40 @@ export class StorageService implements OnModuleInit {
 
   async getPresignedUrl(
     objectName: string,
-    expirySeconds: number = 3600,
+    expiryMinutes: number = 60,
   ): Promise<string> {
-    const url = await this.client.presignedGetObject(
-      this.bucket,
-      objectName,
-      expirySeconds,
+    const cachedSAS = await this.cacheService.get(
+      `storage:sas:${this.containerName}`,
     );
-
-    const minioUrl = this.configService.get<string>('MINIO_PUBLIC_URL');
-
-    if (!minioUrl || minioUrl === 'yours') {
-      return url;
+    if (cachedSAS !== null) {
+      return `${this.endpoint}/${this.containerName}/${objectName}?${cachedSAS}`;
     }
 
-    const parsedUrl = new URL(url);
+    const startTime = new Date(Date.now() - 5 * 60 * 1000);
+    const expiryTime = new Date(Date.now() + expiryMinutes * 60 * 1000);
 
-    return `${minioUrl}${parsedUrl.pathname}${parsedUrl.search}`;
+    const userDelegationKey = await this.client.getUserDelegationKey(
+      startTime,
+      expiryTime,
+    );
+
+    const containerSAS = generateBlobSASQueryParameters(
+      {
+        containerName: this.containerName,
+        permissions: ContainerSASPermissions.parse('r'),
+        startsOn: startTime,
+        expiresOn: expiryTime,
+      },
+      userDelegationKey,
+      this.accountName,
+    ).toString();
+
+    await this.cacheService.set(
+      `storage:sas:${this.containerName}`,
+      containerSAS,
+      (expiryMinutes - 10) * 60,
+    );
+
+    return `${this.endpoint}/${this.containerName}/${objectName}?${containerSAS}`;
   }
 }

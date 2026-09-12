@@ -2,26 +2,28 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+import { OrderStatus } from '../../common/enums/order-status.enum';
+import { PaymentMethod } from '../../common/enums/payment-method.enum';
+import { OrderCancelCode } from '../../common/enums/order-cancel-code.enum';
 import { OrderItem } from './order-item.entity';
-
-export enum OrderStatus {
-  PENDING = 'pending',
-  PROCESSING = 'processing',
-  SHIPPING = 'shipping',
-  DELIVERED = 'delivered',
-  CANCELLED = 'cancelled',
-}
+import { User } from '../../users/entities/user.entity';
+import { OrderStatusHistory } from './order-status-history.entity';
 
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
-  userId!: number;
+  @Column({
+    nullable: true,
+  })
+  userId!: number | null;
 
   @Column()
   totalPrice!: number;
@@ -33,9 +35,51 @@ export class Order {
   })
   status!: OrderStatus;
 
-  @OneToMany(() => OrderItem, (item) => item.order)
+  @Column({
+    nullable: true,
+    type: 'enum',
+    enum: OrderCancelCode,
+  })
+  cancelCode!: OrderCancelCode | null;
+
+  @Column({
+    nullable: true,
+    type: 'text',
+  })
+  cancelReason!: string | null;
+
+  @Column({
+    type: 'enum',
+    enum: PaymentMethod,
+  })
+  paymentMethod!: PaymentMethod;
+
+  @Column()
+  shippingStreet!: string;
+
+  @Column()
+  shippingCity!: string;
+
+  @Column()
+  shippingWard!: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt!: Date;
+
+  @ManyToOne(() => User, (user) => user.orders, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'userId' })
+  user!: User | null;
+
+  @OneToMany(() => OrderItem, (item) => item.order, {
+    cascade: true,
+  })
   items!: OrderItem[];
 
-  @CreateDateColumn()
-  createdAt!: Date;
+  @OneToMany(() => OrderStatusHistory, (statusHistory) => statusHistory.order)
+  statusHistories!: OrderStatusHistory[];
 }

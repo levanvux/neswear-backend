@@ -20,25 +20,13 @@ export class LocationsController {
     return this.locationsService.getProvinces(country);
   }
 
-  @Get('districts/:provinceCode')
-  getDistrictsByProvince(
+  @Get('wards/:provinceCode')
+  getWardsByProvince(
     @Query('country', new DefaultValuePipe('vn'))
     country: string,
-
     @Param('provinceCode', ParseIntPipe)
     provinceCode: number,
   ) {
-    return this.locationsService.getDistrictsByProvince(country, provinceCode);
-  }
-
-  @Get('wards/:districtCode')
-  getWardsByDistrict(
-    @Query('country', new DefaultValuePipe('vn'))
-    country: string,
-
-    @Param('districtCode', ParseIntPipe)
-    districtCode: number,
-  ) {
-    return this.locationsService.getWardsByDistrict(country, districtCode);
+    return this.locationsService.getWardsByProvince(country, provinceCode);
   }
 }

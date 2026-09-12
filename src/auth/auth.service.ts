@@ -36,7 +36,7 @@ export class AuthService {
 
     const existingUser = await this.usersService.findByEmail(registerDto.email);
     if (existingUser) {
-      throw new BadRequestException('Email already exists');
+      throw new BadRequestException('Email đã tồn tại');
     }
 
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
@@ -68,12 +68,12 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Email hoặc mật khẩu không đúng');
     }
 
     const isMatch = await bcrypt.compare(loginDto.password, user.password);
     if (!isMatch) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Email hoặc mật khẩu không đúng');
     }
 
     const payload = { email: user.email, sub: user.id, role: user.role };
@@ -92,14 +92,15 @@ export class AuthService {
     const user = await this.usersService.findById(userId);
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Tài khoản không tồn tại');
     }
 
     const userAddresses = user.addresses?.map((addr) => ({
+      id: addr.id,
       street: addr.street,
       ward: addr.ward,
-      district: addr.district,
       city: addr.city,
+      isDefault: addr.isDefault,
     }));
 
     return {

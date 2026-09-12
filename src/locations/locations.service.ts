@@ -10,19 +10,14 @@ export interface DivisionApiResponse {
 
 export interface ProvinceApiResponse extends DivisionApiResponse {
   phone_code: number;
-  districts: DistrictApiResponse[];
-}
-
-export interface DistrictApiResponse extends DivisionApiResponse {
-  province_code: number;
   wards: WardApiResponse[];
 }
 
 export interface WardApiResponse extends DivisionApiResponse {
-  district_code: number;
+  province_code: number;
 }
 
-export interface Division {
+export interface DivisionResponse {
   name: string;
   code: number;
 }
@@ -30,11 +25,11 @@ export interface Division {
 @Injectable()
 export class LocationsService {
   private readonly LOCATION_PREFIX = 'locations:vn';
-  private readonly API_URL = 'https://provinces.open-api.vn/api/v1';
+  private readonly API_URL = 'https://provinces.open-api.vn/api/v2';
 
   constructor(private readonly redisService: RedisService) {}
 
-  async getProvinces(country: string): Promise<Division[]> {
+  async getProvinces(country: string): Promise<DivisionResponse[]> {
     if (country !== 'vn') return [];
 
     const PROVINCES_KEY = this.LOCATION_PREFIX + ':provinces';
@@ -43,7 +38,7 @@ export class LocationsService {
 
     if (cached) {
       try {
-        return JSON.parse(cached) as Division[];
+        return JSON.parse(cached) as DivisionResponse[];
       } catch {
         await this.redisService.del(PROVINCES_KEY);
       }
@@ -70,21 +65,21 @@ export class LocationsService {
     return provinces;
   }
 
-  async getDistrictsByProvince(
+  async getWardsByProvince(
     country: string,
     provinceCode: number,
-  ): Promise<Division[]> {
+  ): Promise<DivisionResponse[]> {
     if (country !== 'vn') return [];
 
-    const DISTRICTS_KEY = `${this.LOCATION_PREFIX}:districts:${provinceCode}`;
+    const WARDS_KEY = `${this.LOCATION_PREFIX}:wards:${provinceCode}`;
 
-    const cached = await this.redisService.get(DISTRICTS_KEY);
+    const cached = await this.redisService.get(WARDS_KEY);
 
     if (cached) {
       try {
-        return JSON.parse(cached) as Division[];
+        return JSON.parse(cached) as DivisionResponse[];
       } catch {
-        await this.redisService.del(DISTRICTS_KEY);
+        await this.redisService.del(WARDS_KEY);
       }
     }
 
@@ -96,46 +91,7 @@ export class LocationsService {
       );
     }
 
-    const districts = (
-      (await response.json()) as ProvinceApiResponse
-    ).districts.map(({ code, name }) => ({ code, name }));
-
-    await this.redisService.set(
-      DISTRICTS_KEY,
-      JSON.stringify(districts),
-      60 * 60 * 24,
-    );
-
-    return districts;
-  }
-
-  async getWardsByDistrict(
-    country: string,
-    districtCode: number,
-  ): Promise<Division[]> {
-    if (country !== 'vn') return [];
-
-    const WARDS_KEY = `${this.LOCATION_PREFIX}:wards:${districtCode}`;
-
-    const cached = await this.redisService.get(WARDS_KEY);
-
-    if (cached) {
-      try {
-        return JSON.parse(cached) as Division[];
-      } catch {
-        await this.redisService.del(WARDS_KEY);
-      }
-    }
-
-    const response = await fetch(`${this.API_URL}/d/${districtCode}?depth=2`);
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch provinces: ${response.status} ${response.statusText}`,
-      );
-    }
-
-    const wards = ((await response.json()) as DistrictApiResponse).wards.map(
+    const wards = ((await response.json()) as ProvinceApiResponse).wards.map(
       ({ code, name }) => ({ code, name }),
     );
 

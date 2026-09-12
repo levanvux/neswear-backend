@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { User } from './user.entity';
 
@@ -6,6 +13,12 @@ import { User } from './user.entity';
 export class Address {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt!: Date;
 
   @Column()
   @IsNotEmpty()
@@ -17,12 +30,11 @@ export class Address {
 
   @Column()
   @IsNotEmpty()
-  district!: string;
-
-  @Column()
-  @IsNotEmpty()
   city!: string;
 
+  @Column({ default: false })
+  isDefault!: boolean;
+
   @ManyToOne(() => User, (user) => user.addresses)
-  user!: User;
+  user?: User;
 }

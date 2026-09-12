@@ -1,4 +1,5 @@
 import {
+  ArrayMaxSize,
   IsArray,
   IsEmail,
   IsOptional,
@@ -37,6 +38,7 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(1)
   @ValidateNested({ each: true })
   @Type(() => CreateAddressDto)
   addresses?: CreateAddressDto[];

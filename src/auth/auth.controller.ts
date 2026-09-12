@@ -6,22 +6,31 @@ import {
   Request,
   UseGuards,
   Res,
+  Patch,
+  Delete,
+  Param,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { Response } from 'express';
 
 import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { JwtGuard } from './guards/jwt.guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
-import { Role } from '../common/enums/role.enum';
+import { ActiveUserData } from './interfaces/active-user-data.interface';
+import { UpdateAddressDto } from '../users/dto/update-address.dto';
+import { CreateAddressDto } from '../users/dto/create-address.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly authService: AuthService,
     private readonly configService: ConfigService,
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
   ) {}
 
   @Post('register')
@@ -52,7 +61,7 @@ export class AuthController {
   @UseGuards(JwtRefreshGuard)
   @Post('refresh')
   async refresh(
-    @Request() req: { user: { userId: number; email: string; role: Role } },
+    @Request() req: { user: ActiveUserData },
     @Res({ passthrough: true }) res: Response,
   ) {
     const { userId, email, role } = req.user;
@@ -80,9 +89,42 @@ export class AuthController {
 
   @UseGuards(JwtGuard)
   @Get('me')
-  getMe(
-    @Request() req: { user: { userId: number; email: string; role: Role } },
-  ) {
+  async getMe(@Request() req: { user: ActiveUserData }) {
     return this.authService.getMe(req.user.userId);
+  }
+
+  // @UseGuards(JwtGuard)
+  // @Patch('me')
+  // updateMe() {
+  //   return 'update me';
+  // }
+
+  @UseGuards(JwtGuard)
+  @Post('me/addresses')
+  async createAddress(
+    @Request() req: { user: ActiveUserData },
+    @Body() dto: CreateAddressDto,
+  ) {
+    return this.usersService.createAddress(req.user.userId, dto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Patch('me/addresses/:id')
+  async updateAddress(
+    @Request() req: { user: ActiveUserData },
+    @Param('id') addressId: number,
+    @Body() dto: UpdateAddressDto,
+  ) {
+    return this.usersService.updateAddress(req.user.userId, addressId, dto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete('me/addresses/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteAddress(
+    @Request() req: { user: ActiveUserData },
+    @Param('id') addressId: number,
+  ) {
+    await this.usersService.deleteAddress(req.user.userId, addressId);
   }
 }

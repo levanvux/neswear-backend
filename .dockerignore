@@ -1,9 +1,26 @@
+# Build artifacts & Dependencies
 node_modules
 dist
+
+# Version Control & CI/CD
 .git
-.github
 .gitignore
-Dockerfile
-docker-compose.yml
+.github
+
+# Environment Variables
 .env
 .env.*
+
+# Tests, Tools & Documentation
+test
+seed-assets
+test-api.http
+README.md
+
+# Logs & System Files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode
+.idea

@@ -85,29 +85,7 @@ npm run start:dev
 6. There you go! After the above steps, the API is available at:
 http://localhost:3001/api
 
-<!--
-1. Create `.env` file from the `.env.example` file (modify the values as needed).
+## Related Repositories
 
-2. Setup Docker on your machine and make sure it is running. Then start the containers:
-
-```bash
-$ docker compose up -d
-```
-
-3. Install dependencies:
-
-```bash
-$ npm install
-```
-
-4. Seed data
-
-```bash
-$ npm run seed
-```
-
-5. Run the project:
-
-```bash
-$ npm run start
-``` -->
+- [Neswear Frontend](https://github.com/levanvux/neswear-frontend)
+- [Neswear Deployment](https://github.com/levanvux/neswear-deploy)

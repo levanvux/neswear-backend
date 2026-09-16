@@ -23,6 +23,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Neswear Backend')
     .setDescription("API for a men's fashion e-commerce platform")
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
